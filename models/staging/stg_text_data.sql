@@ -1,0 +1,1 @@
+SELECT * FROM {{ source('DATA', 'TEXT_DATAS') }}
