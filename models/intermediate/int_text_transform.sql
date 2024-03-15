@@ -40,12 +40,12 @@ with
                         ) as integer
                     )
             end as salary,
-            regexp_substr(data, '[0-9]{2}-[0-9]{2}-[0-9]{4}') as start_date,
-            regexp_substr(data, '[0-9]{2}-[0-9]{2}-[0-9]{4}', 1, 2) as end_date
+            TRY_CAST(TO_DATE(REGEXP_SUBSTR(data, '[0-9]{2}-[0-9]{2}-[0-9]{4}'), 'DD-MM-YYYY') AS DATE) AS start_date,
+            TRY_CAST(TO_DATE(REGEXP_SUBSTR(data, '[0-9]{2}-[0-9]{2}-[0-9]{4}', 1, 2), 'DD-MM-YYYY') AS DATE) AS end_date,
         from raw_data
     )
 
 -- Store the results in a new table
 select *
 from split_data
-where name is null
+
